@@ -46,7 +46,7 @@ public class TitleEntity: NavigationSystem
 
     public void BuildSingleTower()
     {
-        BuildComponent.instance.BuildSingleTower(gameObject);
+        //BuildComponent.instance.BuildSingleTower(gameObject);
     }
 
     #region Debug
