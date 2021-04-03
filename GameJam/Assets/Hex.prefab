@@ -660,6 +660,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingMenu: {fileID: 5737866171284274176}
+  towerMenu: {fileID: 7254759828540624782}
   hex: {fileID: 3336501460238795979}
 --- !u!1 &8066946767910353005
 GameObject:
@@ -760,6 +761,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4982259454309917971}
     m_Modifications:
+    - target: {fileID: 679008775308831627, guid: 461b40b09b6dee44b90c24684eedf957,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2477746856910051333, guid: 461b40b09b6dee44b90c24684eedf957,
         type: 3}
       propertyPath: m_IsActive
@@ -886,6 +892,12 @@ RectTransform:
 --- !u!1 &5737866171284274176 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2477746856910051333, guid: 461b40b09b6dee44b90c24684eedf957,
+    type: 3}
+  m_PrefabInstance: {fileID: 7908962245975467013}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7254759828540624782 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 679008775308831627, guid: 461b40b09b6dee44b90c24684eedf957,
     type: 3}
   m_PrefabInstance: {fileID: 7908962245975467013}
   m_PrefabAsset: {fileID: 0}

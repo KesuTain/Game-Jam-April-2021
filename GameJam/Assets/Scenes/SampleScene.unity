@@ -3053,8 +3053,8 @@ MonoBehaviour:
   - {fileID: 4449398554952896705, guid: 28c27a15926deae44a77379c24a2c1e2, type: 3}
   - {fileID: 1010849482716596700, guid: d0e4fc440fc344a4492ac2393c57f2cf, type: 3}
   - {fileID: 3307128911260755291, guid: 3452934f848a7da43912a773ea88654b, type: 3}
-  TimeBetweenWaves: 5
-  TimeBetweenEnemy: 0.46
+  TimeBetweenWaves: 1
+  TimeBetweenEnemy: 0.48
   Waves:
   - CountEnemies: 10
     ResoursesType: 4
@@ -3936,6 +3936,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SingleTower: {fileID: 8666629460380617674, guid: a96c04bb75ff7db4f843e5db33e26fa6,
+    type: 3}
+  SplashTower: {fileID: 8666629460380617674, guid: a96c04bb75ff7db4f843e5db33e26fa6,
+    type: 3}
+  DevideTower: {fileID: 8666629460380617674, guid: a96c04bb75ff7db4f843e5db33e26fa6,
     type: 3}
   Buildings: {fileID: 1076375974}
   YUp: 0.2
