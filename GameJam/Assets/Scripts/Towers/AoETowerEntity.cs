@@ -7,6 +7,7 @@ public class AoETowerEntity : TowerEntity
 {
     bool canShot;
     public GameObject Patron;
+    public GameObject Gun;
     void Start()
     {
         canShot = true;
@@ -26,7 +27,9 @@ public class AoETowerEntity : TowerEntity
         foreach (EnemyEntity enemy in EnemiesIn)
         {
             enemy.GetComponent<EnemyEntity>().GetDamage(Damage);
-            Debug.DrawLine(transform.position, enemy.transform.position);
+            var clone = Instantiate(Patron, Gun.transform.position, Quaternion.identity);
+            clone.GetComponent<AoEPatronEntity>().Target = enemy;
+            Debug.DrawRay(transform.position, enemy.transform.position);
         }
         yield return new WaitForSeconds(SpeedShooting);
         canShot = true;
