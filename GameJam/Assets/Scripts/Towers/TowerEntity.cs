@@ -8,6 +8,7 @@ public class TowerEntity : MonoBehaviour
     public int Health;
     public float SpeedShooting;
     public float RangeAttack;
+    public int Damage;
     public List<EnemyEntity> EnemiesIn;
     
     public void AddEnemy(EnemyEntity item)

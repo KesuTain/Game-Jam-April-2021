@@ -30,11 +30,12 @@ public class NavigationSystem : MonoBehaviour
     void Start()
     {
         FindWay();
+        
     }
 
     void Update()
     {
-
+        
     }
     #region ListFuncitons
     void AddWay(TitleEntity item)
@@ -65,6 +66,10 @@ public class NavigationSystem : MonoBehaviour
     void FindAllTitles()
     {
         Titles = GameObject.FindObjectsOfType<TitleEntity>();
+        foreach(TitleEntity title in Titles)
+        {
+            title.Distance = 99;
+        }
         FindStartEndPoint();
     }
     void FindStartEndPoint()
@@ -84,12 +89,14 @@ public class NavigationSystem : MonoBehaviour
             }
         }
     }
-    void FindWay()
+    public void FindWay()
     {
+        Debug.Log("Find way!");
+        Way.Clear();
         FindAllTitles();
         FindClosePoint(StartPoint);
         bool HaveNext = true;
-        while(CloseTitles.Count != 0 && HaveNext)
+        while(HaveNext)
         {
             
             if(CloseTitles.Count == 0)
@@ -101,15 +108,23 @@ public class NavigationSystem : MonoBehaviour
                     HaveNext = false;
                 }
             }
-
-            for(int i = 0; i < CloseTitles.Count; i++)
+            if (HaveNext)
             {
-                FindClosePoint(CloseTitles[i]);
+                for(int i = 0; i < CloseTitles.Count; i++)
+                {
+                    FindClosePoint(CloseTitles[i]);
+                }
             }
         }
-        FindClosestWay();
+        if(Way[Way.Count - 1].Type == TypeTitle.End)
+        {
+            FindClosestWay();
+        } else
+        {
+            Debug.Log("Haven't way");
+        }
         DebugK();
-    }
+    }   
     void FindClosePoint(TitleEntity title)
     {
         foreach (TitleEntity nextTitle in Titles)
@@ -124,12 +139,12 @@ public class NavigationSystem : MonoBehaviour
     }
     void FindClosestWay()
     {
-        while(Way[Way.Count - 1].Distance != 0)
+        while (Way[Way.Count - 1].Distance != 0)
         {
             bool FoundPoint = false;
             foreach (TitleEntity nextTitle in Titles)
             {
-                if(FoundPoint == false)
+                if (FoundPoint == false)
                 {
                     if (Vector3.Distance(Way[Way.Count - 1].transform.position, nextTitle.transform.position) < 2f && nextTitle.Distance == Way[Way.Count - 1].Distance - 1)
                     {
@@ -139,11 +154,30 @@ public class NavigationSystem : MonoBehaviour
                 }
             }
         }
+        //for(int i = 0; i <= Way[Way.Count - 1].Distance; i++)
+        //{
+        //    bool FoundPoint = false;
+        //    foreach (TitleEntity nextTitle in Titles)
+        //    {
+        //        if(FoundPoint == false)
+        //        {
+        //            if (Vector3.Distance(Way[Way.Count - 1].transform.position, nextTitle.transform.position) < 2f && nextTitle.Distance == Way[Way.Count - 1].Distance - 1)
+        //            {
+        //                FoundPoint = true;
+        //                AddWay(nextTitle);
+        //            }
+        //        }
+        //    }
+        //}
     }
 
     void DebugK()
     {
-        foreach(TitleEntity Debugable in Way)
+        foreach (TitleEntity title in Titles)
+        {
+            title.StartCoroutine(title.AllColor());
+        }
+        foreach (TitleEntity Debugable in Way)
         {
             Debugable.WayPoint = true;
         }

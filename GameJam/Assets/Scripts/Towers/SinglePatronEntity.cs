@@ -6,6 +6,8 @@ public class SinglePatronEntity : MonoBehaviour
 {
     public EnemyEntity Target;
     public float Speed;
+    public int Damage;
+    
     void Start()
     {
         StartCoroutine(TimeLife());
@@ -24,7 +26,22 @@ public class SinglePatronEntity : MonoBehaviour
 
     void MoveToEnemy()
     {
-        transform.LookAt(Target.transform.position + Vector3.up);
-        transform.Translate(Vector3.forward * Time.deltaTime * Speed);
+        if (Target.GetComponent<EnemyEntity>().Health > 0)
+        {
+            transform.LookAt(Target.transform.position + Vector3.up);
+            transform.Translate(Vector3.forward * Time.deltaTime * Speed);
+        } else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            other.GetComponent<EnemyEntity>().GetDamage(Damage);
+            Destroy(gameObject);
+        }
     }
 }

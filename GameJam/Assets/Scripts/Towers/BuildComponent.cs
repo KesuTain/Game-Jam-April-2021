@@ -9,6 +9,7 @@ public class BuildComponent : MonoBehaviour
     public GameObject SingleTower;
     public GameObject Buildings;
     public static BuildComponent instance;
+    public float YUp;
     private void Awake()
     {
         instance = this;
@@ -38,7 +39,9 @@ public class BuildComponent : MonoBehaviour
     public void BuildSingleTower(GameObject hit)
     {
         hit.GetComponentInParent<TitleEntity>().BuildAble = false;
-        Instantiate(SingleTower, hit.transform.position, Quaternion.identity, Buildings.transform);
+        hit.GetComponentInParent<TitleEntity>().Type = NavigationSystem.TypeTitle.NotMove;
+        NavigationSystem.instance.FindWay();
+        Instantiate(SingleTower, hit.transform.position + new Vector3(0, YUp, 0), Quaternion.identity, Buildings.transform);
     }
 
 }

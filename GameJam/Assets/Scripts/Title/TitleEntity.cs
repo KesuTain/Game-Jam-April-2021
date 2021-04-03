@@ -33,7 +33,7 @@ public class TitleEntity: NavigationSystem
     }
 
 
-    IEnumerator AllColor()
+    public IEnumerator AllColor()
     {
         yield return new WaitForSeconds(1f);
         DebugS();
@@ -86,8 +86,10 @@ public class TitleEntity: NavigationSystem
     }
     void ColorDistance()
     {
-       if (Distance != 99)
+        if (Distance != 99)
             Hex.GetComponent<Renderer>().material.color = Colors[Distance];
+        else
+            Hex.GetComponent<Renderer>().material.color = Color.white;
     }
 
     void ColorWay()

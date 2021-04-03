@@ -49,9 +49,11 @@ public class SingleTowerEntity : TowerEntity
         ShootCorut = false;
         var clone = Instantiate(Patron, RightPos.transform.position, Quaternion.identity, Magazine.transform);
         clone.GetComponent<SinglePatronEntity>().Target = Target;
+        clone.GetComponent<SinglePatronEntity>().Damage = Damage;
         yield return new WaitForSeconds(SpeedShooting);
         clone = Instantiate(Patron, LeftPos.transform.position, Quaternion.identity, Magazine.transform);
         clone.GetComponent<SinglePatronEntity>().Target = Target;
+        clone.GetComponent<SinglePatronEntity>().Damage = Damage;
         yield return new WaitForSeconds(SpeedShooting);
         ShootCorut = true;
     }
@@ -73,6 +75,18 @@ public class SingleTowerEntity : TowerEntity
         {
             AddEnemy(other.gameObject.GetComponent<EnemyEntity>());
             TargetEnemy();
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Enemy")
+        {
+            if (other.GetComponent<EnemyEntity>().Alive == false)
+            {
+                RemoveEnemy(other.gameObject.GetComponent<EnemyEntity>());
+                TargetEnemy();
+            }
         }
     }
 

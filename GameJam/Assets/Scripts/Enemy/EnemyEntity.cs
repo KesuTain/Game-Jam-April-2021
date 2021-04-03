@@ -11,11 +11,16 @@ public class EnemyEntity : MonoBehaviour
     public int Health;
     public float SpeedMoving;
     public float SpeedRotation;
+    public int MoneyGet;
+    public bool Alive;
     void Start()
     {
+        Alive = true;
         Move = GetComponent<MoveComponent>();
         FindNextTitle();
     }
+
+    
 
     void FindNextTitle()
     {
@@ -39,5 +44,37 @@ public class EnemyEntity : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, SpeedRotation * Time.deltaTime);
         transform.Translate(Vector3.forward * SpeedMoving * Time.deltaTime);
         
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.name == "EndPoint")
+        {
+            Destroy(gameObject);
+        }
+    }
+
+
+    public void GetDamage(int damage)
+    {
+        Health -= damage;
+        CheckHealth();
+    }
+
+    void CheckHealth()
+    {
+        if(Health <= 0)
+        {
+            Stats.instance.GetMoney(MoneyGet);
+            Alive = false;
+            SpeedMoving = 0;
+            StartCoroutine(Death());
+        }
+    }
+
+    IEnumerator Death()
+    {
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
     }
 }

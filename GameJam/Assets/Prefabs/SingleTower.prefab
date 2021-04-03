@@ -318,6 +318,7 @@ MonoBehaviour:
   Health: 0
   SpeedShooting: 0.2
   RangeAttack: 2
+  Damage: 15
   EnemiesIn: []
   Target: {fileID: 0}
   CanShoot: 0
