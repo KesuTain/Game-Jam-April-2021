@@ -4836,11 +4836,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 5
-  SpeedShooting: 1
+  SpeedShooting: 0.05
   RangeAttack: 2
   Damage: 5
   EnemiesIn: []
-  Patron: {fileID: 0}
+  Patron: {fileID: 3985734017938075434, guid: 135d4b21974412c4abc08e206ae4f3a4, type: 3}
+  Gun: {fileID: 1645424705}
 --- !u!114 &2132944779
 MonoBehaviour:
   m_ObjectHideFlags: 0
