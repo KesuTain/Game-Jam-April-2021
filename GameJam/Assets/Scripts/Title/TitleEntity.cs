@@ -25,10 +25,21 @@ public class TitleEntity: NavigationSystem
     void Start()
     {
         //Interface.SetActive(false);
-        if (Type != TypeTitle.NotMove)
-            BuildAble = true;
-        else
-            BuildAble = false;
+        switch (Type)
+        {
+            case TypeTitle.NotMove:
+                BuildAble = false;
+                break;
+            case TypeTitle.Start:
+                BuildAble = false;
+                break;
+            case TypeTitle.End:
+                BuildAble = false;
+                break;
+            default:
+                BuildAble = true;
+                break;
+        }
         StartCoroutine(AllColor());
     }
 
@@ -97,6 +108,9 @@ public class TitleEntity: NavigationSystem
         if (WayPoint)
         {
             Hex.GetComponent<Renderer>().material.color = Color.yellow;
+        } else
+        {
+            Hex.GetComponent<Renderer>().material.color = Color.white;
         }
     }
     #endregion
