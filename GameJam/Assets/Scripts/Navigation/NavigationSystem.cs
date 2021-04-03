@@ -139,7 +139,23 @@ public class NavigationSystem : MonoBehaviour
     }
     void FindClosestWay()
     {
-        while (Way[Way.Count - 1].Distance != 0)
+        //while (Way[Way.Count - 1].Distance != 0)
+        //{
+        //    bool FoundPoint = false;
+        //    foreach (TitleEntity nextTitle in Titles)
+        //    {
+        //        if (FoundPoint == false)
+        //        {
+        //            if (Vector3.Distance(Way[Way.Count - 1].transform.position, nextTitle.transform.position) < 2f && nextTitle.Distance == Way[Way.Count - 1].Distance - 1)
+        //            {
+        //                FoundPoint = true;
+        //                AddWay(nextTitle);
+        //            }
+        //        }
+        //    }
+        //}
+        int iend = Way[Way.Count - 1].Distance;
+        for (int i = 0; i <= iend; i++)
         {
             bool FoundPoint = false;
             foreach (TitleEntity nextTitle in Titles)
@@ -154,21 +170,10 @@ public class NavigationSystem : MonoBehaviour
                 }
             }
         }
-        //for(int i = 0; i <= Way[Way.Count - 1].Distance; i++)
-        //{
-        //    bool FoundPoint = false;
-        //    foreach (TitleEntity nextTitle in Titles)
-        //    {
-        //        if(FoundPoint == false)
-        //        {
-        //            if (Vector3.Distance(Way[Way.Count - 1].transform.position, nextTitle.transform.position) < 2f && nextTitle.Distance == Way[Way.Count - 1].Distance - 1)
-        //            {
-        //                FoundPoint = true;
-        //                AddWay(nextTitle);
-        //            }
-        //        }
-        //    }
-        //}
+        if(Way[Way.Count - 1].Distance != 0)
+        {
+            BuildComponent.instance.RemoveBuilding();
+        }
     }
 
     void DebugK()

@@ -14,6 +14,9 @@ public class BuildComponent : MonoBehaviour
     public static BuildComponent instance;
     public float YUp;
 	private TileGUI previousHittenTileGui;
+
+	public GameObject LastBuild;
+	public GameObject LastHex;
 	//private bool isMenuActive = false;
 
     private void Awake()
@@ -79,8 +82,17 @@ public class BuildComponent : MonoBehaviour
     {
         hit.GetComponentInParent<TitleEntity>().BuildAble = false;
         hit.GetComponentInParent<TitleEntity>().Type = NavigationSystem.TypeTitle.NotMove;
+        var clone = Instantiate(GetTowerOfType(towerType), hit.transform.position + new Vector3(0, YUp, 0), Quaternion.identity, Buildings.transform);
+		LastBuild = clone;
+		LastHex = hit;
         NavigationSystem.instance.FindWay();
-        Instantiate(GetTowerOfType(towerType), hit.transform.position + new Vector3(0, YUp, 0), Quaternion.identity, Buildings.transform);
-    }
+	}
 
+	public void RemoveBuilding()
+    {
+		Destroy(LastBuild);
+		LastHex.GetComponentInParent<TitleEntity>().BuildAble = true;
+		LastHex.GetComponentInParent<TitleEntity>().Type = NavigationSystem.TypeTitle.Move;
+		NavigationSystem.instance.FindWay();
+	}
 }
