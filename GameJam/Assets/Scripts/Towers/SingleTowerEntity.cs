@@ -27,8 +27,10 @@ public class SingleTowerEntity : TowerEntity
     private bool ShootCorut;
     void Update()
     {
-        
-        LookAtTarget();
+		if (Target != null)
+		{
+			LookAtTarget();
+		}
         if (CanShoot && ShootCorut)
         {
             Shoot();

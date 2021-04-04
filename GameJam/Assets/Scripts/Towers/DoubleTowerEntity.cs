@@ -21,8 +21,11 @@ public class DoubleTowerEntity : TowerEntity
     private bool ShootCorut;
     void Update()
     {
-        LookAtTarget();
-        if (CanShoot && ShootCorut)
+		if (Target != null)
+		{
+			LookAtTarget();
+		}
+		if (CanShoot && ShootCorut)
         {
             Shoot();
         }
