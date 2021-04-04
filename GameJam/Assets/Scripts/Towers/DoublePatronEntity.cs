@@ -27,7 +27,7 @@ public class DoublePatronEntity : MonoBehaviour
     void MoveToEnemy()
     {
         Debug.Log(Target);
-        if (Target.GetComponent<EnemyEntity>().Health > 0)
+        if (Target != null && Target.GetComponent<EnemyEntity>().Health > 0 )
         {
             transform.LookAt(Target.transform.position + Vector3.up);
             transform.Translate(Vector3.forward * Time.deltaTime * Speed);

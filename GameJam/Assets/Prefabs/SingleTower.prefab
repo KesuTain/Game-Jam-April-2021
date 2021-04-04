@@ -316,7 +316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Health: 0
-  SpeedShooting: 0.2
+  SpeedShooting: 0.3
   RangeAttack: 2
   Damage: 15
   EnemiesIn: []
