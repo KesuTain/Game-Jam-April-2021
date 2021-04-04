@@ -9,12 +9,15 @@ public class EnemyEntity : MonoBehaviour
     public TitleEntity PointToMove;
     [Header("Parameters")]
     public int Health;
+    public int Damage;
     public float SpeedMoving;
     public float SpeedRotation;
     public int MoneyGet;
     public bool Alive;
+    public bool Doubleable;
     void Start()
     {
+        Doubleable = true;
         Alive = true;
         Move = GetComponent<MoveComponent>();
         FindNextTitle();
@@ -50,11 +53,24 @@ public class EnemyEntity : MonoBehaviour
     {
         if(other.name == "EndPoint")
         {
+            Stats.instance.GetDamage(Damage);
             Destroy(gameObject);
         }
     }
 
-
+    public void DoublePick()
+    {
+        //var clone1 = Instantiate(gameObject, transform.position, Quaternion.identity);
+        //clone1.transform.position += Vector3.forward;
+        //clone1.gameObject.transform.localScale /= 2;
+        //var clone2 = Instantiate(gameObject, transform.position, Quaternion.identity);
+        //clone2.gameObject.transform.localScale /= 2;
+        //StartCoroutine(Death());
+        Doubleable = false;
+        transform.localScale /= 1.5f;
+        Health /= 2;
+        transform.position += new Vector3(0, 0.1f);
+    }
     public void GetDamage(int damage)
     {
         Health -= damage;
@@ -66,15 +82,15 @@ public class EnemyEntity : MonoBehaviour
         if(Health <= 0)
         {
             Stats.instance.GetMoney(MoneyGet);
-            Alive = false;
-            SpeedMoving = 0;
             StartCoroutine(Death());
         }
     }
 
     IEnumerator Death()
     {
-        yield return new WaitForSeconds(1f);
+        Alive = false;
+        SpeedMoving = 0;
+        yield return new WaitForSeconds(3f);
         Destroy(gameObject);
     }
 }

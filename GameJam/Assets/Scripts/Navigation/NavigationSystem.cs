@@ -35,7 +35,6 @@ public class NavigationSystem : MonoBehaviour
 
     void Update()
     {
-        
     }
     #region ListFuncitons
     void AddWay(TitleEntity item)
@@ -95,27 +94,7 @@ public class NavigationSystem : MonoBehaviour
         Way.Clear();
         FindAllTitles();
         FindClosePoint(StartPoint);
-        bool HaveNext = true;
-        while(HaveNext)
-        {
-            
-            if(CloseTitles.Count == 0)
-            {
-                CloseTitles = CloseNextTitles;
-                CloseNextTitles.Clear();
-                if(CloseTitles.Count == 0)
-                {
-                    HaveNext = false;
-                }
-            }
-            if (HaveNext)
-            {
-                for(int i = 0; i < CloseTitles.Count; i++)
-                {
-                    FindClosePoint(CloseTitles[i]);
-                }
-            }
-        }
+        Nearest();
         if(Way[Way.Count - 1].Type == TypeTitle.End)
         {
             FindClosestWay();
@@ -124,7 +103,31 @@ public class NavigationSystem : MonoBehaviour
             Debug.Log("Haven't way");
         }
         DebugK();
-    }   
+    } 
+    
+    void Nearest()
+    {
+        bool HaveNext = true;
+        if (CloseTitles.Count == 0)
+        {
+            CloseTitles = CloseNextTitles;
+            CloseNextTitles.Clear();
+            if (CloseTitles.Count == 0)
+            {
+                HaveNext = false;
+            }
+        }
+        if (HaveNext)
+        {
+            for (int i = 0; i < CloseTitles.Count; i++)
+            {
+                FindClosePoint(CloseTitles[i]);
+            }
+        }
+
+        if (HaveNext)
+            Nearest();
+    }
     void FindClosePoint(TitleEntity title)
     {
         foreach (TitleEntity nextTitle in Titles)
@@ -139,21 +142,6 @@ public class NavigationSystem : MonoBehaviour
     }
     void FindClosestWay()
     {
-        //while (Way[Way.Count - 1].Distance != 0)
-        //{
-        //    bool FoundPoint = false;
-        //    foreach (TitleEntity nextTitle in Titles)
-        //    {
-        //        if (FoundPoint == false)
-        //        {
-        //            if (Vector3.Distance(Way[Way.Count - 1].transform.position, nextTitle.transform.position) < 2f && nextTitle.Distance == Way[Way.Count - 1].Distance - 1)
-        //            {
-        //                FoundPoint = true;
-        //                AddWay(nextTitle);
-        //            }
-        //        }
-        //    }
-        //}
         int iend = Way[Way.Count - 1].Distance;
         for (int i = 0; i <= iend; i++)
         {
