@@ -59,7 +59,7 @@ public class SingleTowerEntity : TowerEntity
         clone.GetComponent<SinglePatronEntity>().Target = Target;
         clone.GetComponent<SinglePatronEntity>().Damage = Damage;
         yield return new WaitForSeconds(SpeedShooting);
-        aud.PlayOneShot(lazer);
+        //aud.PlayOneShot(lazer);
         clone = Instantiate(Patron, LeftPos.transform.position, Quaternion.identity, Magazine.transform);
         clone.GetComponent<SinglePatronEntity>().Target = Target;
         clone.GetComponent<SinglePatronEntity>().Damage = Damage;

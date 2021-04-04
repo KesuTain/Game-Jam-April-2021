@@ -33,8 +33,12 @@ public class AoETowerEntity : TowerEntity
             var clone = Instantiate(Patron, Gun.transform.position, Quaternion.identity);
             clone.GetComponent<AoEPatronEntity>().Target = enemy;
             Debug.DrawRay(transform.position, enemy.transform.position);
-            aud.PlayOneShot(clip);
+            
         }
+		if (EnemiesIn.Count > 0)
+		{
+			aud.PlayOneShot(clip);
+		}
         
         yield return new WaitForSeconds(SpeedShooting);
         canShot = true;
