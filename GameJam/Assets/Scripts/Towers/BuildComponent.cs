@@ -39,7 +39,7 @@ public class BuildComponent : MonoBehaviour
 				CloseGUI();
                 if (hit.collider.name == "Main")
                 {
-					if (hit.collider.GetComponentInParent<TitleEntity>().BuildAble == true)
+					if (hit.collider.GetComponentInParent<TitleEntity>().BuildAble == true && SpawnSystem.instance.Buildability)
 					{
 						hit.collider.GetComponentInParent<TileGUI>().BuildingMenuSetActive(true);
 					} else
@@ -80,12 +80,16 @@ public class BuildComponent : MonoBehaviour
 
     public void BuildTower(GameObject hit, TowerType towerType)
     {
-        hit.GetComponentInParent<TitleEntity>().BuildAble = false;
-        hit.GetComponentInParent<TitleEntity>().Type = NavigationSystem.TypeTitle.NotMove;
-        var clone = Instantiate(GetTowerOfType(towerType), hit.transform.position + new Vector3(0, YUp, 0), Quaternion.identity, Buildings.transform);
-		LastBuild = clone;
-		LastHex = hit;
-        NavigationSystem.instance.FindWay();
+		if(Stats.instance.Money >= Stats.instance.Cost)
+        {
+			Stats.instance.GetMoney(-Stats.instance.Cost);
+			hit.GetComponentInParent<TitleEntity>().BuildAble = false;
+			hit.GetComponentInParent<TitleEntity>().Type = NavigationSystem.TypeTitle.NotMove;
+			var clone = Instantiate(GetTowerOfType(towerType), hit.transform.position + new Vector3(0, YUp, 0), Quaternion.identity, Buildings.transform);
+			LastBuild = clone;
+			LastHex = hit;
+			NavigationSystem.instance.FindWay();
+        }
 	}
 
 	public void RemoveBuilding()

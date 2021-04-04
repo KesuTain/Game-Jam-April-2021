@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class SpawnSystem : MonoBehaviour
 {
+    public static SpawnSystem instance;
     public EnemyEntity[] Enemy;
     public float TimeBetweenWaves;
     public float TimeBetweenEnemy;
+    public bool Buildability;
     [System.Serializable]
     public class Wave
     {
@@ -17,6 +19,10 @@ public class SpawnSystem : MonoBehaviour
     }
     public List<Wave> Waves;
     public int WaveNow;
+    private void Awake()
+    {
+        instance = this;
+    }
     void Start()
     {
         WaveNow = 0;
@@ -33,14 +39,16 @@ public class SpawnSystem : MonoBehaviour
     {
         foreach (Wave wave in Waves)
         {
+            Buildability = true;
             yield return new WaitForSeconds(TimeBetweenWaves);
+            Buildability = false;
             foreach (EnemyEntity enemy in wave.Queue)
             {
                 Instantiate(enemy);
                 yield return new WaitForSeconds(TimeBetweenEnemy);
             }
         }
-        
+        Stats.instance.Win();
     }
 
     void QueueQueue()
