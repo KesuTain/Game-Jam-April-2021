@@ -13,20 +13,19 @@ public class Stats : MonoBehaviour
     public Text MoneyLabel;
     public Text HealthLabel;
 
-    public GameObject LosePanel;
-    public GameObject WinPanel;
+    public GameObject EndGamePanel;
+	public Text WinLabel;
 
     public int Cost;
     private void Awake()
     {
         instance = this;
-        
     }
 
     private void Start()
     {
-        Health = 999;
-        Money = 100;
+        //Health = 999;
+        //Money = 100;
         OutToUI();
     }
     public void GetMoney(int Count)
@@ -38,17 +37,29 @@ public class Stats : MonoBehaviour
     public void GetDamage(int Damage)
     {
         Health -= Damage;
-        if(Health <= 0)
+		OutToUI();
+		if (Health <= 0)
         {
             Health = 0;
             OutToUI();
-            LosePanel.SetActive(true);
+			Loose();
         }
     }
     public void Win()
     {
-        WinPanel.SetActive(true);
-    }
+		WinLabel.text = "Победа!";
+		WinLabel.color = Color.green;
+		EndGamePanel.SetActive(true);
+		//Time.timeScale = 0;
+	}
+	public void Loose()
+	{
+		WinLabel.text = "Поражение";
+		WinLabel.color = Color.red;
+		EndGamePanel.SetActive(true);
+		//Time.timeScale = 0;
+	}
+
     void OutToUI()
     {
         MoneyLabel.text = Money.ToString();

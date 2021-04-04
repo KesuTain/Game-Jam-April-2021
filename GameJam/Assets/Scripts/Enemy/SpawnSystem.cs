@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpawnSystem : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class SpawnSystem : MonoBehaviour
     public float TimeBetweenWaves;
     public float TimeBetweenEnemy;
     public bool Buildability;
+
+	public Text BuildabilityLabel;
+
     [System.Serializable]
     public class Wave
     {
@@ -40,9 +44,13 @@ public class SpawnSystem : MonoBehaviour
         foreach (Wave wave in Waves)
         {
             Buildability = true;
+			BuildabilityLabel.text = "Время строить!";
+			BuildabilityLabel.color = Color.green;
             yield return new WaitForSeconds(TimeBetweenWaves);
             Buildability = false;
-            foreach (EnemyEntity enemy in wave.Queue)
+			BuildabilityLabel.text = "Не время строить!";
+			BuildabilityLabel.color = Color.red;
+			foreach (EnemyEntity enemy in wave.Queue)
             {
                 Instantiate(enemy);
                 yield return new WaitForSeconds(TimeBetweenEnemy);
@@ -76,6 +84,6 @@ public class SpawnSystem : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 }
