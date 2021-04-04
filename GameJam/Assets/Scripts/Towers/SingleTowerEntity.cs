@@ -14,15 +14,20 @@ public class SingleTowerEntity : TowerEntity
     public GameObject LeftPos;
     public GameObject RightPos;
     public GameObject Magazine;
+
+    public AudioClip lazer;
+    public AudioSource aud;
     void Start()
     {
         Magazine = GameObject.Find("Magazine");
         ShootCorut = true;
         GetComponent<SphereCollider>().radius = RangeAttack;
+        aud = GameObject.Find("AudioSource").GetComponent<AudioSource>();
     }
     private bool ShootCorut;
     void Update()
     {
+        
         LookAtTarget();
         if (CanShoot && ShootCorut)
         {
@@ -47,10 +52,12 @@ public class SingleTowerEntity : TowerEntity
     IEnumerator Shooting()
     {
         ShootCorut = false;
+        aud.PlayOneShot(lazer);
         var clone = Instantiate(Patron, RightPos.transform.position, Quaternion.identity, Magazine.transform);
         clone.GetComponent<SinglePatronEntity>().Target = Target;
         clone.GetComponent<SinglePatronEntity>().Damage = Damage;
         yield return new WaitForSeconds(SpeedShooting);
+        aud.PlayOneShot(lazer);
         clone = Instantiate(Patron, LeftPos.transform.position, Quaternion.identity, Magazine.transform);
         clone.GetComponent<SinglePatronEntity>().Target = Target;
         clone.GetComponent<SinglePatronEntity>().Damage = Damage;

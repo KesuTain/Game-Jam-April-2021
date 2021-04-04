@@ -101,6 +101,8 @@ MonoBehaviour:
   EnemiesIn: []
   Patron: {fileID: 3985734017938075434, guid: 135d4b21974412c4abc08e206ae4f3a4, type: 3}
   Gun: {fileID: 4868857421952301707}
+  aud: {fileID: 0}
+  clip: {fileID: 8300000, guid: f429129e08ab0d84d976a65dcbf2296d, type: 3}
 --- !u!135 &4868857422133636419
 SphereCollider:
   m_ObjectHideFlags: 0
